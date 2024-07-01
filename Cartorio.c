@@ -3,15 +3,16 @@
 #include <locale.h> //biblioteca de alocação de texto por região
 #include <string.h> //biblioteca responsável por cuidar da string
 
-int registro(){
+int registro(){ //Função responsável por cadastrar um usuário
+	//Variáveis
 	char arquivo[40];
 	char cpf[40];
 	char nome[40];
 	char sobrenome[40];
 	char cargo[40];
 	
-	printf("Digite seu CPF: ");
-	scanf("%s", cpf);
+	printf("Digite seu CPF: "); //Coletando infos
+	scanf("%s", cpf); //%s refere-se a string
 	
 	strcpy(arquivo, cpf); //Responsável por copiar os valores das strings
 	
@@ -82,8 +83,20 @@ int consulta(){
 }
 
 int deletar(){
-	printf("Você escolheu DELETAR NOME\n");
-	system("pause");
+	char cpf[40];
+	
+	printf("Digite o CPF a ser deletado: ");
+	scanf("%s", cpf);
+	
+	remove(cpf);
+	
+	FILE *file;
+	file = fopen(cpf, "r");
+	
+	if(file == NULL){
+		printf("CPF NÃO ENCONTRADO!\n");
+		system("pause");
+	}
 }
 
 int main(){
@@ -101,7 +114,8 @@ int main(){
 		printf("Escolha a opção desejada no menu:\n\n");
 		printf("\t1 - Registrar nomes\n");
 		printf("\t2 - Consultar os nomes\n");
-		printf("\t3 - Deletar nomes\n\n");
+		printf("\t3 - Deletar nomes\n");
+		printf("\t4 - Sair do Sistema\n\n");
 		printf("Opção: "); //Fim do menu
 
 		scanf("%d", &opcao); //Armazenando a escolha do usuário
@@ -119,6 +133,11 @@ int main(){
 			
 			case 3:
 				deletar();
+			break;
+			
+			case 4:
+				printf("Obrigado por usar nosso sistema!\n");
+				return 0;
 			break;
 			
 			default:
